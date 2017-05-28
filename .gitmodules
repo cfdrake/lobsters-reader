@@ -1,0 +1,6 @@
+[submodule "Unbox"]
+	path = Vendor/Unbox
+	url = https://github.com/JohnSundell/Unbox.git
+[submodule "Result"]
+	path = Vendor/Result
+	url = https://github.com/antitypical/Result.git
