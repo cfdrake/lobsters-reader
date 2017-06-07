@@ -52,7 +52,6 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
         title = typeString
         tabBarItem = UITabBarItem(title: typeString, image: typeIcon, selectedImage: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,6 +64,9 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         // Configure views.
         tableView.register(StoryTableViewCell.nib, forCellReuseIdentifier: StoryTableViewCell.cellIdentifier)
         tableView.tableFooterView = UIView()
+
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(StoriesViewController.refresh), for: .valueChanged)
 
         // Fetch initial story set.
         refresh()
@@ -85,8 +87,14 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         stories = []
         loading = true
 
+        tableView.refreshControl?.beginRefreshing()
+
         client.fetchStories(ofType: type, page: page) { [unowned self] result in
             self.loading = false
+
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
+            }
 
             switch result {
             case let .success(initialStories):
