@@ -51,6 +51,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         let typeIcon = UIImage.init(named: "\(typeString)Icon")
 
         title = typeString
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: nil)
         tabBarItem = UITabBarItem(title: typeString, image: typeIcon, selectedImage: nil)
     }
     
@@ -84,7 +85,6 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     @objc fileprivate func refresh() {
         page = 1
-        stories = []
         loading = true
 
         tableView.refreshControl?.beginRefreshing()
