@@ -143,6 +143,9 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         let story = stories[indexPath.row]
         let viewModel = StoryViewModel(story: story)
         delegate?.storiesViewController(storiesViewController: self, selectedStory: viewModel)
+
+        // Fix selection style being persisted.
+        tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
     }
 
     // MARK: UIScrollViewDelegate
