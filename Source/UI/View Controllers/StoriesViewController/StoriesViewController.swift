@@ -41,7 +41,9 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         self.fetcher = fetcher
         self.page = 1
         self.stories = []
+
         super.init(style: .plain)
+
         title = feed.asTitle
         tabBarItem = UITabBarItem(title: feed.asTitle, image: feed.icon, selectedImage: nil)
     }
