@@ -43,7 +43,6 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         self.stories = []
         super.init(style: .plain)
         title = feed.asTitle
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: nil)
         tabBarItem = UITabBarItem(title: feed.asTitle, image: feed.icon, selectedImage: nil)
     }
     
