@@ -8,10 +8,9 @@
 
 import Foundation
 
-fileprivate extension String {
-
-    func pluralize(n: Int) -> String {
+extension String {
+    /// Naive, but workable for this app, implementation of string pluralization.
+    func pluralize(_ n: Int) -> String {
         return n == 1 ? self : self + "s"
     }
-    
 }

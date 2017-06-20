@@ -10,19 +10,16 @@ import UIKit
 
 /// Delegate protocol for StoriesViewController interactions.
 protocol StoriesViewControllerDelegate {
-    func storiesViewController(storiesViewController: StoriesViewController, selectedStory: Story)
-    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory: Story)
+    func storiesViewController(storiesViewController: StoriesViewController, selectedStory: StoryViewModel)
+    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory: StoryViewModel)
 }
 
 /// Displays a list of stories.
 final class StoriesViewController: UITableViewController, StoryTableViewCellDelegate {
-
-    // MARK: Properties
-
     var delegate: StoriesViewControllerDelegate?
-    fileprivate let client = APIClient.defaultClient
-    fileprivate let type: StoryType
-    fileprivate var page = 1
+    fileprivate let fetcher: StoryFetching
+    fileprivate let feed: Feed
+    fileprivate var page: UInt
     fileprivate var stories: [Story] {
         didSet {
             guard self.isViewLoaded else { return }
@@ -39,20 +36,15 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         }
     }
 
-    // MARK: Initialization
-
-    init(type: StoryType) {
-        self.type = type
+    init(feed: Feed, fetcher: StoryFetching) {
+        self.feed = feed
+        self.fetcher = fetcher
+        self.page = 1
         self.stories = []
-
         super.init(style: .plain)
-
-        let typeString = String(describing: type)
-        let typeIcon = UIImage.init(named: "\(typeString)Icon")
-
-        title = typeString
+        title = feed.asTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: nil)
-        tabBarItem = UITabBarItem(title: typeString, image: typeIcon, selectedImage: nil)
+        tabBarItem = UITabBarItem(title: feed.asTitle, image: feed.icon, selectedImage: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +81,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
         tableView.refreshControl?.beginRefreshing()
 
-        client.fetchStories(ofType: type, page: page) { [unowned self] result in
+        fetcher.fetchStories(fromFeed: feed, page: page) { [unowned self] result in
             self.loading = false
 
             DispatchQueue.main.async {
@@ -110,7 +102,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate func loadNextPage() {
         loading = true
 
-        client.fetchStories(ofType: type, page: page) { [unowned self] result in
+        fetcher.fetchStories(fromFeed: feed, page: page) { [unowned self] result in
             self.loading = false
 
             switch result {
@@ -132,21 +124,12 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let story = stories[indexPath.row]
+        let viewModel = StoryViewModel(story: story)
         let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.cellIdentifier, for: indexPath) as! StoryTableViewCell
 
-        cell.storyTitleLabel?.text = story.title
-        cell.storyScoreLabel?.text = "\(story.score)"
-        cell.storySubmitDateLabel?.text = "Submitted \(story.createdAt.timeAgo())"
-        cell.storyCommentsButton?.setTitle("\(story.commentCount)", for: .normal)
+        cell.configure(viewModel: viewModel)
         cell.delegate = self
         cell.tag = indexPath.row
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
-        if let domain = story.urlDomain {
-            cell.storyDomainLabel?.text = domain
-        } else {
-            cell.storyDomainLabel?.text = "text"
-        }
 
         return cell
     }
@@ -159,7 +142,8 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let story = stories[indexPath.row]
-        delegate?.storiesViewController(storiesViewController: self, selectedStory: story)
+        let viewModel = StoryViewModel(story: story)
+        delegate?.storiesViewController(storiesViewController: self, selectedStory: viewModel)
     }
 
     // MARK: UIScrollViewDelegate
@@ -181,7 +165,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     func tappedCommentsButton(inStoryTableViewCell cell: StoryTableViewCell) {
         let index = cell.tag
         let story = stories[index]
-        delegate?.storiesViewController(storiesViewController: self, selectedCommentsForStory: story)
+        let viewModel = StoryViewModel(story: story)
+        delegate?.storiesViewController(storiesViewController: self, selectedCommentsForStory: viewModel)
     }
-
 }

@@ -9,9 +9,9 @@
 import Foundation
 
 extension Date {
-
     /// Returns a string representing the time between now and the given date.
-    // Based on: https://stackoverflow.com/questions/44086555/swift-time-ago-from-parse-createdat-date
+    /// Based on: https://stackoverflow.com/questions/44086555/swift-time-ago-from-parse-createdat-date
+    /// Supplemented to add pluralization for units.
     func timeAgo() -> String {
         let calendar = Calendar.current
         let minuteAgo = calendar.date(byAdding: .minute, value: -1, to: Date())!
@@ -21,20 +21,19 @@ extension Date {
 
         if minuteAgo < self {
             let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
-            return "\(diff) sec ago"
+            return "\(diff) \("sec".pluralize(diff)) ago"
         } else if hourAgo < self {
             let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
-            return "\(diff) min ago"
+            return "\(diff) \("min".pluralize(diff)) ago"
         } else if dayAgo < self {
             let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
-            return "\(diff) hrs ago"
+            return "\(diff) \("hr".pluralize(diff)) ago"
         } else if weekAgo < self {
             let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
-            return "\(diff) days ago"
+            return "\(diff) \("day".pluralize(diff)) ago"
         }
 
         let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
-        return "\(diff) weeks ago"
+        return "\(diff) \("week".pluralize(diff)) ago"
     }
-
 }

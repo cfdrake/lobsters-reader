@@ -10,9 +10,6 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    // MARK: Properties
-
     var window: UIWindow?
 
     // MARK: UIApplicationDelegate
@@ -33,5 +30,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-
 }

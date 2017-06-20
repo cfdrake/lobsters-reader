@@ -11,20 +11,16 @@ import SafariServices
 
 /// Flow controller responsible for application navigation and view controller hierarchy/setup.
 final class AppFlowController: StoriesViewControllerDelegate, InfoViewControllerDelegate {
-
-    // MARK: Properties
-
     fileprivate let rootViewController: UITabBarController
-
-    // MARK: Initialization
+    fileprivate let client = APIClient.default
 
     init() {
         // Setup view controller hierarchy.
         rootViewController = UITabBarController()
 
-        let newestStoriesViewController = StoriesViewController(type: .hottest)
-        let hottestStoriesViewController = StoriesViewController(type: .newest)
-        let infoViewController = InfoViewController()
+        let newestStoriesViewController = StoriesViewController(feed: .hottest, fetcher: client)
+        let hottestStoriesViewController = StoriesViewController(feed: .newest, fetcher: client)
+        let infoViewController = InfoViewController(info: defaultAppInfo)
 
         infoViewController.delegate = self
         newestStoriesViewController.delegate = self
@@ -47,18 +43,18 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
 
     fileprivate func presentUrl(url: URL) {
         let viewController = SFSafariViewController(url: url)
-        viewController.view.tintColor = AppTheme.lobstersRed
-        viewController.preferredControlTintColor = AppTheme.lobstersRed
+        viewController.view.tintColor = .lobstersRed
+        viewController.preferredControlTintColor = .lobstersRed
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
     // MARK: StoriesViewControllerDelegate
 
-    func storiesViewController(storiesViewController: StoriesViewController, selectedStory story: Story) {
-        presentUrl(url: story.urlToShow)
+    func storiesViewController(storiesViewController: StoriesViewController, selectedStory story: StoryViewModel) {
+        presentUrl(url: story.viewableUrl)
     }
 
-    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory story: Story) {
+    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory story: StoryViewModel) {
         presentUrl(url: story.commentsUrl)
     }
 
@@ -67,18 +63,4 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
     func infoViewController(infoViewController: InfoViewController, selectedUrl url: URL) {
         presentUrl(url: url)
     }
-
-}
-
-extension Story {
-
-    /// The URL to show for a story. Ensures text posts show the comments page.
-    var urlToShow: URL {
-        if let url = url {
-            return url
-        } else {
-            return commentsUrl
-        }
-    }
-
 }
