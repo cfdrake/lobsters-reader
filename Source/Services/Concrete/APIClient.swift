@@ -48,13 +48,9 @@ final class APIClient: StoryFetching {
 
     func fetchStories(fromFeed feed: Feed, page: UInt, completion: @escaping (Result<[Story], StoryFetchingError>) -> Void) {
         let request = requestForFeed(feed, page: page)
-
         debugLog("Queueing HTTP \(request.httpMethod!) to \(request.url!.absoluteString)...")
 
         let task = session.dataTask(with: request) { (data, response, error) in
-            let response = response as! HTTPURLResponse
-            debugLog("> Received HTTP \(response.statusCode)...")
-
             if let error = error {
                 let reason = "You must be connected to the network to fetch new stories. Please connect and try again."
                 debugLog("> No network connection...")
