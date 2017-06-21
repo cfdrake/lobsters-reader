@@ -49,9 +49,16 @@ final class APIClient: StoryFetching {
     func fetchStories(fromFeed feed: Feed, page: UInt, completion: @escaping (Result<[Story], StoryFetchingError>) -> Void) {
         let request = requestForFeed(feed, page: page)
 
+        debugLog("Queueing HTTP \(request.httpMethod!) to \(request.url!.absoluteString)...")
+
         let task = session.dataTask(with: request) { (data, response, error) in
-            if error != nil {
+            let response = response as! HTTPURLResponse
+            debugLog("> Received HTTP \(response.statusCode)...")
+
+            if let error = error {
                 let reason = "You must be connected to the network to fetch new stories. Please connect and try again."
+                debugLog("> No network connection...")
+                debugLog(error.localizedDescription)
                 completion(Result.failure(StoryFetchingError(reason: reason)))
             } else if let data = data {
                 // We'll assume that the data provided from the official API is going to be in the expected format.
@@ -59,9 +66,11 @@ final class APIClient: StoryFetching {
                 let json = try! JSONSerialization.jsonObject(with: data, options: [])
                 let jsonArray = json as! [UnboxableDictionary]
                 let stories: [Story] = jsonArray.map { try! unbox(dictionary: $0) }
+                debugLog("> Fetched \(stories.count) stories!")
                 completion(Result.success(stories))
             } else {
                 let reason = "There was an issue with the data from the server. Please try again."
+                debugLog("> Invalid data coming from the server...")
                 completion(Result.failure(StoryFetchingError(reason: reason)))
             }
         }

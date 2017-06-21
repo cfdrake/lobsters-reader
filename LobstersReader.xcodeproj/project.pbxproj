@@ -33,6 +33,7 @@
 		3BC8E6411EF9E2D100A243C4 /* Feed+DisplayHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */; };
 		3BC8E6451EF9F0A200A243C4 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6441EF9F0A200A243C4 /* Tag.swift */; };
 		3BC8E6541EF9F0CB00A243C4 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */; };
+		3BEF69461EFA080D004D7FF6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF69451EFA080D004D7FF6 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,7 @@
 		3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feed+DisplayHelpers.swift"; sourceTree = "<group>"; };
 		3BC8E6441EF9F0A200A243C4 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagsViewController.swift; path = TagsViewController/TagsViewController.swift; sourceTree = "<group>"; };
+		3BEF69451EFA080D004D7FF6 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 			children = (
 				3BB3804C1ED9F2AD00872E15 /* AppDelegate.swift */,
 				3B15FABC1ED9F60D00091767 /* AppFlowController.swift */,
+				3BEF69451EFA080D004D7FF6 /* Logger.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				3BC8E62E1EF9CD7800A243C4 /* APIClient.swift in Sources */,
 				3BC8E62A1EF9CBFA00A243C4 /* Story+Unboxable.swift in Sources */,
 				3B97EA261EDB6041009B3B4B /* String+Pluralize.swift in Sources */,
+				3BEF69461EFA080D004D7FF6 /* Logger.swift in Sources */,
 				3B15FAC71ED9FA9A00091767 /* Feed.swift in Sources */,
 				3B97EA1C1EDB4697009B3B4B /* ISO8601DateFormatter+UnboxFormatter.swift in Sources */,
 				3BC8E6311EF9D26900A243C4 /* Feed+Path.swift in Sources */,

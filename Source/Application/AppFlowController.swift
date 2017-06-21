@@ -39,6 +39,7 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
     // MARK: Public Interface
 
     func install(inWindow window: UIWindow) {
+        debugLog("Installing app flow controller...")
         window.rootViewController = rootViewController
     }
 
@@ -48,6 +49,9 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
         let viewController = SFSafariViewController(url: url)
         viewController.view.tintColor = .lobstersRed
         viewController.preferredControlTintColor = .lobstersRed
+
+        debugLog("Presenting \(url) in SFSafariViewController...")
+
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
