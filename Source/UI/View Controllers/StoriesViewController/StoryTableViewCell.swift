@@ -39,7 +39,7 @@ final class StoryTableViewCell: UITableViewCell {
         storyScoreLabel?.text = "↑\(viewModel.score)"
         storySubmitDateLabel?.text = "Submitted \(viewModel.fuzzyPostedAt)"
         storyCommentsButton?.setTitle("\(viewModel.comments)", for: .normal)
-        storyDomainLabel?.text = viewModel.urlDomain ?? "text"
+        storyDomainLabel?.text = viewModel.urlDomain ?? "(text)"
     }
 
     // MARK: Actions
