@@ -14,7 +14,7 @@ protocol StoriesViewControllerDelegate {
     func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory: StoryViewModel)
 }
 
-/// Displays a list of stories.
+/// View controller displaying a list of stories.
 final class StoriesViewController: UITableViewController, StoryTableViewCellDelegate {
     var delegate: StoriesViewControllerDelegate?
     fileprivate let fetcher: StoryFetching
@@ -117,6 +117,11 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         }
     }
 
+    fileprivate func viewModelForRow(_ row: Int) -> StoryViewModel {
+        let story = stories[row]
+        return StoryViewModel(story: story)
+    }
+
     // MARK: UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -124,8 +129,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let story = stories[indexPath.row]
-        let viewModel = StoryViewModel(story: story)
+        let viewModel = viewModelForRow(indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.cellIdentifier, for: indexPath) as! StoryTableViewCell
 
         cell.configure(viewModel: viewModel)
@@ -138,12 +142,11 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     // MARK: UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 60
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let story = stories[indexPath.row]
-        let viewModel = StoryViewModel(story: story)
+        let viewModel = viewModelForRow(indexPath.row)
         delegate?.storiesViewController(storiesViewController: self, selectedStory: viewModel)
 
         // Fix selection style being persisted.
@@ -168,8 +171,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     func tappedCommentsButton(inStoryTableViewCell cell: StoryTableViewCell) {
         let index = cell.tag
-        let story = stories[index]
-        let viewModel = StoryViewModel(story: story)
+        let viewModel = viewModelForRow(index)
         delegate?.storiesViewController(storiesViewController: self, selectedCommentsForStory: viewModel)
     }
 }
