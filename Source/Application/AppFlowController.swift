@@ -68,6 +68,7 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
     }
 
     // MARK: TagsViewControllerDelegate
+
     func tagsViewController(tagsViewController: TagsViewController, selectedTag tag: String) {
         let tagViewController = StoriesViewController(feed: Feed.tagged(tag), fetcher: client)
         tagViewController.delegate = self
