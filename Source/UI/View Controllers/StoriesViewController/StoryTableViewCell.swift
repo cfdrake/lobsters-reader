@@ -47,5 +47,4 @@ final class StoryTableViewCell: UITableViewCell {
     @IBAction func tappedCommentsButton() {
         delegate?.tappedCommentsButton(inStoryTableViewCell: self)
     }
-
 }
