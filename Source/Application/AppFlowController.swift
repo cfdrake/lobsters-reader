@@ -47,7 +47,6 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
 
     fileprivate func presentUrl(url: URL) {
         let viewController = SFSafariViewController(url: url)
-        viewController.view.tintColor = .lobstersRed
         viewController.preferredControlTintColor = .lobstersRed
 
         debugLog("Presenting \(url) in SFSafariViewController...")
