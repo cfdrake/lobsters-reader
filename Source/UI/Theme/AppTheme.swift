@@ -18,5 +18,6 @@ final class AppTheme {
     static func apply() {
         UITabBar.appearance().tintColor = .lobstersRed
         UIBarButtonItem.appearance().tintColor = .lobstersRed
+        UINavigationBar.appearance().tintColor = .lobstersRed
     }
 }
