@@ -31,6 +31,8 @@
 		3BC8E6311EF9D26900A243C4 /* Feed+Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6301EF9D26900A243C4 /* Feed+Path.swift */; };
 		3BC8E63F1EF9DF9E00A243C4 /* AppInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E63E1EF9DF9E00A243C4 /* AppInfoViewModel.swift */; };
 		3BC8E6411EF9E2D100A243C4 /* Feed+DisplayHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */; };
+		3BC8E6451EF9F0A200A243C4 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6441EF9F0A200A243C4 /* Tag.swift */; };
+		3BC8E6541EF9F0CB00A243C4 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,11 +187,11 @@
 		3B15FAD21EDA1D4D00091767 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		3B97EA071EDB15F2009B3B4B /* StoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		3B97EA091EDB15FB009B3B4B /* StoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryTableViewCell.xib; sourceTree = "<group>"; };
-		3B97EA0C1EDB2B92009B3B4B /* Date+TimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+TimeAgo.swift"; path = "Date+TimeAgo.swift"; sourceTree = "<group>"; };
+		3B97EA0C1EDB2B92009B3B4B /* Date+TimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+TimeAgo.swift"; sourceTree = "<group>"; };
 		3B97EA0E1EDB305C009B3B4B /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		3B97EA1B1EDB4697009B3B4B /* ISO8601DateFormatter+UnboxFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ISO8601DateFormatter+UnboxFormatter.swift"; path = "ISO8601DateFormatter+UnboxFormatter.swift"; sourceTree = "<group>"; };
-		3B97EA231EDB5EF5009B3B4B /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppTheme.swift; path = AppTheme.swift; sourceTree = "<group>"; };
-		3B97EA251EDB6041009B3B4B /* String+Pluralize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Pluralize.swift"; path = "String+Pluralize.swift"; sourceTree = "<group>"; };
+		3B97EA1B1EDB4697009B3B4B /* ISO8601DateFormatter+UnboxFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+UnboxFormatter.swift"; sourceTree = "<group>"; };
+		3B97EA231EDB5EF5009B3B4B /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		3B97EA251EDB6041009B3B4B /* String+Pluralize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Pluralize.swift"; sourceTree = "<group>"; };
 		3B97EA271EDB6203009B3B4B /* Result.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Result.xcodeproj; path = Vendor/Result/Result.xcodeproj; sourceTree = "<group>"; };
 		3B97EA3F1EDB6208009B3B4B /* Unbox.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Unbox.xcodeproj; path = Vendor/Unbox/Unbox.xcodeproj; sourceTree = "<group>"; };
 		3BB380491ED9F2AD00872E15 /* LobstersReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LobstersReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +206,8 @@
 		3BC8E6301EF9D26900A243C4 /* Feed+Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feed+Path.swift"; sourceTree = "<group>"; };
 		3BC8E63E1EF9DF9E00A243C4 /* AppInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewModel.swift; sourceTree = "<group>"; };
 		3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feed+DisplayHelpers.swift"; sourceTree = "<group>"; };
+		3BC8E6441EF9F0A200A243C4 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagsViewController.swift; path = TagsViewController/TagsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +234,7 @@
 		3B15FAB31ED9F2DA00091767 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3BC8E6521EF9F0BC00A243C4 /* TagsViewController */,
 				3B97EA181EDB4176009B3B4B /* InfoViewController */,
 				3B97EA171EDB416D009B3B4B /* StoriesViewController */,
 			);
@@ -241,6 +246,7 @@
 			children = (
 				3B15FAC61ED9FA9A00091767 /* Feed.swift */,
 				3B15FAB61ED9F30C00091767 /* Story.swift */,
+				3BC8E6441EF9F0A200A243C4 /* Tag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -347,7 +353,6 @@
 				3BC8E6361EF9D40400A243C4 /* Helpers */,
 				3BC8E62F1EF9D19400A243C4 /* Protocols */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -359,7 +364,6 @@
 				3B15FAB31ED9F2DA00091767 /* View Controllers */,
 				3BC8E6241EF9CAEB00A243C4 /* View Models */,
 			);
-			name = UI;
 			path = UI;
 			sourceTree = "<group>";
 		};
@@ -368,7 +372,6 @@
 			children = (
 				3B97EA231EDB5EF5009B3B4B /* AppTheme.swift */,
 			);
-			name = Theme;
 			path = Theme;
 			sourceTree = "<group>";
 		};
@@ -378,7 +381,6 @@
 				3BC8E63E1EF9DF9E00A243C4 /* AppInfoViewModel.swift */,
 				3BC8E6251EF9CAF600A243C4 /* StoryViewModel.swift */,
 			);
-			name = "View Models";
 			path = "View Models";
 			sourceTree = "<group>";
 		};
@@ -387,7 +389,6 @@
 			children = (
 				3BC8E62D1EF9CD7800A243C4 /* APIClient.swift */,
 			);
-			name = Concrete;
 			path = Concrete;
 			sourceTree = "<group>";
 		};
@@ -396,7 +397,6 @@
 			children = (
 				3BC8E62B1EF9CD1300A243C4 /* StoryFetching.swift */,
 			);
-			name = Protocols;
 			path = Protocols;
 			sourceTree = "<group>";
 		};
@@ -407,7 +407,6 @@
 				3B97EA1B1EDB4697009B3B4B /* ISO8601DateFormatter+UnboxFormatter.swift */,
 				3BC8E6291EF9CBFA00A243C4 /* Story+Unboxable.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
 			sourceTree = "<group>";
 		};
@@ -418,8 +417,15 @@
 				3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */,
 				3B97EA251EDB6041009B3B4B /* String+Pluralize.swift */,
 			);
-			name = Helpers;
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3BC8E6521EF9F0BC00A243C4 /* TagsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */,
+			);
+			name = TagsViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -622,11 +628,13 @@
 				3BC8E62C1EF9CD1300A243C4 /* StoryFetching.swift in Sources */,
 				3BC8E63F1EF9DF9E00A243C4 /* AppInfoViewModel.swift in Sources */,
 				3BC8E6261EF9CAF600A243C4 /* StoryViewModel.swift in Sources */,
+				3BC8E6451EF9F0A200A243C4 /* Tag.swift in Sources */,
 				3BB3804D1ED9F2AD00872E15 /* AppDelegate.swift in Sources */,
 				3B15FABB1ED9F32100091767 /* StoriesViewController.swift in Sources */,
 				3B15FAB71ED9F30C00091767 /* Story.swift in Sources */,
 				3B97EA241EDB5EF6009B3B4B /* AppTheme.swift in Sources */,
 				3B97EA0D1EDB2B92009B3B4B /* Date+TimeAgo.swift in Sources */,
+				3BC8E6541EF9F0CB00A243C4 /* TagsViewController.swift in Sources */,
 				3BC8E6411EF9E2D100A243C4 /* Feed+DisplayHelpers.swift in Sources */,
 				3B97EA081EDB15F2009B3B4B /* StoryTableViewCell.swift in Sources */,
 			);

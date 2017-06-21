@@ -14,7 +14,7 @@ extension Feed {
         switch self {
         case .hottest: return "/hottest.json"
         case .newest: return "/newest.json"
-        case let .tagged(tag): return "/\(tag).json"
+        case let .tagged(tag): return "/t/\(tag).json"
         }
     }
 }

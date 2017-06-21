@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 /// Flow controller responsible for application navigation and view controller hierarchy/setup.
-final class AppFlowController: StoriesViewControllerDelegate, InfoViewControllerDelegate {
+final class AppFlowController: StoriesViewControllerDelegate, InfoViewControllerDelegate, TagsViewControllerDelegate {
     fileprivate let rootViewController: UITabBarController
     fileprivate let client = APIClient.default
 
@@ -21,14 +21,17 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
         let newestStoriesViewController = StoriesViewController(feed: .hottest, fetcher: client)
         let hottestStoriesViewController = StoriesViewController(feed: .newest, fetcher: client)
         let infoViewController = InfoViewController(info: defaultAppInfo)
+        let tagsViewController = TagsViewController()
 
         infoViewController.delegate = self
         newestStoriesViewController.delegate = self
         hottestStoriesViewController.delegate = self
+        tagsViewController.delegate = self
 
         rootViewController.viewControllers = [
             UINavigationController(rootViewController: newestStoriesViewController),
             UINavigationController(rootViewController: hottestStoriesViewController),
+            UINavigationController(rootViewController: tagsViewController),
             UINavigationController(rootViewController: infoViewController)
         ]
     }
@@ -62,5 +65,11 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
 
     func infoViewController(infoViewController: InfoViewController, selectedUrl url: URL) {
         presentUrl(url: url)
+    }
+
+    // MARK: TagsViewControllerDelegate
+    func tagsViewController(tagsViewController: TagsViewController, selectedTag tag: String) {
+        let tagViewController = StoriesViewController(feed: Feed.tagged(tag), fetcher: client)
+        tagsViewController.navigationController?.pushViewController(tagViewController, animated: true)
     }
 }
