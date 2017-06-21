@@ -234,9 +234,9 @@
 		3B15FAB31ED9F2DA00091767 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3BC8E6521EF9F0BC00A243C4 /* TagsViewController */,
 				3B97EA181EDB4176009B3B4B /* InfoViewController */,
 				3B97EA171EDB416D009B3B4B /* StoriesViewController */,
+				3BC8E6521EF9F0BC00A243C4 /* TagsViewController */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
