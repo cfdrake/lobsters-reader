@@ -208,7 +208,7 @@
 		3BC8E63E1EF9DF9E00A243C4 /* AppInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoViewModel.swift; sourceTree = "<group>"; };
 		3BC8E6401EF9E2D100A243C4 /* Feed+DisplayHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feed+DisplayHelpers.swift"; sourceTree = "<group>"; };
 		3BC8E6441EF9F0A200A243C4 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagsViewController.swift; path = TagsViewController/TagsViewController.swift; sourceTree = "<group>"; };
+		3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagsViewController.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		3BEF69451EFA080D004D7FF6 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -429,6 +429,7 @@
 				3BC8E6531EF9F0CB00A243C4 /* TagsViewController.swift */,
 			);
 			name = TagsViewController;
+			path = TagsViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
