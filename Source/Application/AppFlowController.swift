@@ -10,11 +10,11 @@ import UIKit
 import SafariServices
 
 /// Flow controller responsible for application navigation and view controller hierarchy/setup.
-final class AppFlowController: StoriesViewControllerDelegate, InfoViewControllerDelegate, TagsViewControllerDelegate {
+final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoViewControllerDelegate, TagsViewControllerDelegate, UITabBarControllerDelegate {
     fileprivate let rootViewController: UITabBarController
     fileprivate let client = APIClient.default
 
-    init() {
+    override init() {
         // Setup view controller hierarchy.
         rootViewController = UITabBarController()
 
@@ -23,11 +23,14 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
         let infoViewController = InfoViewController(info: defaultAppInfo)
         let tagsViewController = TagsViewController()
 
+        super.init()
+
         infoViewController.delegate = self
         newestStoriesViewController.delegate = self
         hottestStoriesViewController.delegate = self
         tagsViewController.delegate = self
 
+        rootViewController.delegate = self
         rootViewController.viewControllers = [
             UINavigationController(rootViewController: newestStoriesViewController),
             UINavigationController(rootViewController: hottestStoriesViewController),
@@ -49,6 +52,25 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
         let viewController = SFSafariViewController(url: url)
         viewController.preferredControlTintColor = .lobstersRed
         return viewController
+    }
+
+    // MARK: UITabBarDelegate
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let selectedController = tabBarController.selectedViewController else { return true }
+        guard let viewController = viewController as? UINavigationController else { return true }
+
+        // Check if we're selecting an already selected view controller.
+        // If so, allow power users to use this bounce to top of stories controller, or back to tags listing.
+        if selectedController == viewController {
+            if let viewController = viewController.viewControllers.first as? StoriesViewController {
+                viewController.tableView.setContentOffset(CGPoint.zero, animated: true)
+            } else if let viewController = viewController.viewControllers.first as? TagsViewController {
+                viewController.navigationController?.popViewController(animated: true)
+            }
+        }
+
+        return true
     }
 
     // MARK: StoriesViewControllerDelegate
