@@ -45,46 +45,49 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
 
     // MARK: Helpers
 
-    fileprivate func presentUrl(url: URL) {
+    fileprivate func safariControllerForUrl(_ url: URL) -> SFSafariViewController {
         let viewController = SFSafariViewController(url: url)
-        viewController.preferredControlTintColor = .lobstersRed
-
-        debugLog("Presenting \(url) in SFSafariViewController...")
-
-        rootViewController.present(viewController, animated: true, completion: nil)
-    }
-
-    // MARK: StoriesViewControllerDelegate
-
-    func storiesViewController(storiesViewController: StoriesViewController, selectedStory story: StoryViewModel) {
-        presentUrl(url: story.viewableUrl)
-    }
-
-    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory story: StoryViewModel) {
-        presentUrl(url: story.commentsUrl)
-    }
-
-    func storiesViewController(storiesViewController: StoriesViewController, viewControllerForPreviewOfStory story: StoryViewModel) -> UIViewController {
-        let viewController = SFSafariViewController(url: story.viewableUrl)
         viewController.preferredControlTintColor = .lobstersRed
         return viewController
     }
 
-    func storiesViewController(storiesViewController: StoriesViewController, commitPreviewOfStoryWithController viewController: UIViewController) {
+    // MARK: StoriesViewControllerDelegate
+
+    func showStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) {
+        let viewController = safariControllerForUrl(story.viewableUrl)
+        rootViewController.present(viewController, animated: true, completion: nil)
+    }
+
+    func showCommentsForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) {
+        let viewController = safariControllerForUrl(story.commentsUrl)
+        rootViewController.present(viewController, animated: true, completion: nil)
+    }
+
+    func previewingViewControllerForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) -> UIViewController {
+        let viewController = safariControllerForUrl(story.viewableUrl)
+        return viewController
+    }
+
+    func commitPreviewingViewControllerForStory(_ viewController: UIViewController, storiesViewController: StoriesViewController) {
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
     // MARK: InfoViewControllerDelegate
 
     func infoViewController(infoViewController: InfoViewController, selectedUrl url: URL) {
-        presentUrl(url: url)
+        let viewController = safariControllerForUrl(url)
+        rootViewController.present(viewController, animated: true, completion: nil)
     }
 
     // MARK: TagsViewControllerDelegate
 
     func tagsViewController(tagsViewController: TagsViewController, selectedTag tag: String) {
+        guard let navigationController = tagsViewController.navigationController else {
+            return
+        }
+
         let tagViewController = StoriesViewController(feed: Feed.tagged(tag), fetcher: client)
         tagViewController.delegate = self
-        tagsViewController.navigationController?.pushViewController(tagViewController, animated: true)
+        navigationController.pushViewController(tagViewController, animated: true)
     }
 }

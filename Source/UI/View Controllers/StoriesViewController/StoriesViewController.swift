@@ -10,10 +10,10 @@ import UIKit
 
 /// Delegate protocol for StoriesViewController interactions.
 protocol StoriesViewControllerDelegate {
-    func storiesViewController(storiesViewController: StoriesViewController, selectedStory: StoryViewModel)
-    func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory: StoryViewModel)
-    func storiesViewController(storiesViewController: StoriesViewController, viewControllerForPreviewOfStory: StoryViewModel) -> UIViewController
-    func storiesViewController(storiesViewController: StoriesViewController, commitPreviewOfStoryWithController viewController: UIViewController)
+    func showStory(_ story: StoryViewModel, storiesViewController: StoriesViewController)
+    func showCommentsForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController)
+    func previewingViewControllerForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) -> UIViewController
+    func commitPreviewingViewControllerForStory(_ viewController: UIViewController, storiesViewController: StoriesViewController)
 }
 
 /// View controller displaying a list of stories.
@@ -152,7 +152,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewModel = viewModelForRow(indexPath.row)
-        delegate?.storiesViewController(storiesViewController: self, selectedStory: viewModel)
+        delegate?.showStory(viewModel, storiesViewController: self)
 
         // Fix selection style being persisted.
         tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
@@ -177,7 +177,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     func tappedCommentsButton(inStoryTableViewCell cell: StoryTableViewCell) {
         let index = cell.tag
         let viewModel = viewModelForRow(index)
-        delegate?.storiesViewController(storiesViewController: self, selectedCommentsForStory: viewModel)
+        delegate?.showCommentsForStory(viewModel, storiesViewController: self)
     }
 
     // MARK: UIViewControllerPreviewingDelegate
@@ -188,10 +188,10 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         }
 
         let viewModel = viewModelForRow(indexPath.row)
-        return delegate?.storiesViewController(storiesViewController: self, viewControllerForPreviewOfStory: viewModel)
+        return delegate?.previewingViewControllerForStory(viewModel, storiesViewController: self)
     }
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        delegate?.storiesViewController(storiesViewController: self, commitPreviewOfStoryWithController: viewControllerToCommit)
+        delegate?.commitPreviewingViewControllerForStory(viewControllerToCommit, storiesViewController: self)
     }
 }
