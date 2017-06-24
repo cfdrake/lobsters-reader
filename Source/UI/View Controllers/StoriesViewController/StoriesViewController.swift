@@ -12,10 +12,12 @@ import UIKit
 protocol StoriesViewControllerDelegate {
     func storiesViewController(storiesViewController: StoriesViewController, selectedStory: StoryViewModel)
     func storiesViewController(storiesViewController: StoriesViewController, selectedCommentsForStory: StoryViewModel)
+    func storiesViewController(storiesViewController: StoriesViewController, viewControllerForPreviewOfStory: StoryViewModel) -> UIViewController
+    func storiesViewController(storiesViewController: StoriesViewController, commitPreviewOfStoryWithController viewController: UIViewController)
 }
 
 /// View controller displaying a list of stories.
-final class StoriesViewController: UITableViewController, StoryTableViewCellDelegate {
+final class StoriesViewController: UITableViewController, StoryTableViewCellDelegate, UIViewControllerPreviewingDelegate {
     var delegate: StoriesViewControllerDelegate?
     fileprivate let fetcher: StoryFetching
     fileprivate let feed: Feed
@@ -61,6 +63,9 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(StoriesViewController.refresh), for: .valueChanged)
+
+        // Set up 3D touch.
+        registerForPreviewing(with: self, sourceView: view)
 
         // Fetch initial story set.
         refresh()
@@ -173,5 +178,20 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         let index = cell.tag
         let viewModel = viewModelForRow(index)
         delegate?.storiesViewController(storiesViewController: self, selectedCommentsForStory: viewModel)
+    }
+
+    // MARK: UIViewControllerPreviewingDelegate
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location) else {
+            return nil
+        }
+
+        let viewModel = viewModelForRow(indexPath.row)
+        return delegate?.storiesViewController(storiesViewController: self, viewControllerForPreviewOfStory: viewModel)
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        delegate?.storiesViewController(storiesViewController: self, commitPreviewOfStoryWithController: viewControllerToCommit)
     }
 }

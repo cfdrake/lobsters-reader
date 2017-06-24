@@ -64,6 +64,16 @@ final class AppFlowController: StoriesViewControllerDelegate, InfoViewController
         presentUrl(url: story.commentsUrl)
     }
 
+    func storiesViewController(storiesViewController: StoriesViewController, viewControllerForPreviewOfStory story: StoryViewModel) -> UIViewController {
+        let viewController = SFSafariViewController(url: story.viewableUrl)
+        viewController.preferredControlTintColor = .lobstersRed
+        return viewController
+    }
+
+    func storiesViewController(storiesViewController: StoriesViewController, commitPreviewOfStoryWithController viewController: UIViewController) {
+        rootViewController.present(viewController, animated: true, completion: nil)
+    }
+
     // MARK: InfoViewControllerDelegate
 
     func infoViewController(infoViewController: InfoViewController, selectedUrl url: URL) {
