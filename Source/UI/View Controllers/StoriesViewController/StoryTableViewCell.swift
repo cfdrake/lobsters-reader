@@ -25,13 +25,6 @@ final class StoryTableViewCell: UITableViewCell {
 
     var delegate: StoryTableViewCellDelegate?
 
-    // MARK: UIView
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-
     // MARK: Helpers
 
     func configure(viewModel: StoryViewModel) {
