@@ -1,5 +1,5 @@
 //
-//  Feed+Path.swift
+//  FeedType+Path.swift
 //  LobstersReader
 //
 //  Created by Colin Drake on 6/20/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Feed {
+extension FeedType {
     /// The relative path at which a feed's contents may be fetched.
     var path: String {
         switch self {

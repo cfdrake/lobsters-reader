@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Represents a user-submitted story.
+/// A story submitted by a user.
 struct Story {
     let shortIdUrl: URL
     let commentCount: Int

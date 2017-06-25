@@ -8,8 +8,13 @@
 
 import Foundation
 
-func debugLog(_ message: String) {
-    #if DEBUG
-        NSLog(message)
-    #endif
+/// Debug logger.
+final class Logger {
+    static let shared = Logger()
+
+    func log(_ message: String) {
+        #if DEBUG
+            NSLog(message)
+        #endif
+    }
 }

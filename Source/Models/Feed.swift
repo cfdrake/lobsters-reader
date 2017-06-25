@@ -8,7 +8,16 @@
 
 import Foundation
 
-/// Represents a type of feed.
-enum Feed {
-    case hottest, newest, tagged(String)
+/// Appendable feed of stories.
+struct Feed {
+    let type: FeedType
+    let stories: [Story]
+
+    static func empty(type: FeedType) -> Feed {
+        return Feed(type: type, stories: [])
+    }
+
+    func appending(page: FeedPage) -> Feed {
+        return Feed(type: type, stories: stories + page)
+    }
 }

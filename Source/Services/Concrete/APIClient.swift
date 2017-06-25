@@ -10,67 +10,73 @@ import Foundation
 import Result
 import Unbox
 
-/// API client for Lobste.rs JSON API.
-final class APIClient: StoryFetching {
-    fileprivate static let defaultBaseUrl = URL(string: "https://lobste.rs")!
-    static let `default` = APIClient(baseURL: defaultBaseUrl)
-    fileprivate let baseURL: URL
-    fileprivate let session: URLSession
+/// Lobste.rs API client.
+final class APIClient: FeedPageFetching, TagFetching {
+    let baseUrl: URL
+    let session: URLSession
 
-    init(baseURL: URL) {
-        self.baseURL = baseURL
-        self.session = URLSession.shared
+    init(baseUrl: URL = URL(string: "https://lobste.rs")!, session: URLSession = URLSession.shared) {
+        self.baseUrl = baseUrl
+        self.session = session
     }
 
     // MARK: Helpers
 
-    fileprivate func requestForFeed(_ feed: Feed, page: UInt) -> URLRequest {
-        guard let url = URL(string: feed.path, relativeTo: baseURL) else {
-            fatalError("Could not construct API URL")
-        }
-
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            fatalError("Could not deconstruct components from API URL")
-        }
-
-        components.queryItems = [
-            URLQueryItem(name: "page", value: "\(page)")
-        ]
-
-        guard let finalUrl = components.url else {
-            fatalError("Could not unpack final API URL")
-        }
-
-        return URLRequest(url: finalUrl)
+    fileprivate func decodeModels<T: Unboxable>(data: Data) -> [T]? {
+        let json = try! JSONSerialization.jsonObject(with: data, options: [])
+        let jsonArray = json as! [UnboxableDictionary]
+        return jsonArray.map { try! unbox(dictionary: $0) }
     }
 
-    // MARK: StoryFetching
-
-    func fetchStories(fromFeed feed: Feed, page: UInt, completion: @escaping (Result<[Story], StoryFetchingError>) -> Void) {
-        let request = requestForFeed(feed, page: page)
-        debugLog("Queueing HTTP \(request.httpMethod!) to \(request.url!.absoluteString)...")
+    fileprivate func performModelFetch<T: Unboxable>(_ request: URLRequest, completion: @escaping (Result<[T], NSError>) -> Void) {
+        let url = request.url!
+        Logger.shared.log("Making request to \(url)...")
 
         let task = session.dataTask(with: request) { (data, response, error) in
+            // TODO: Replace this.
+            let err = NSError(domain: "", code: 0, userInfo: nil)
+
             if let error = error {
-                let reason = "You must be connected to the network to fetch new stories. Please connect and try again."
-                debugLog("> No network connection...")
-                debugLog(error.localizedDescription)
-                completion(Result.failure(StoryFetchingError(reason: reason)))
+                // Networking error.
+                Logger.shared.log("Error: \(error)...")
+                completion(Result.failure(err))
             } else if let data = data {
-                // We'll assume that the data provided from the official API is going to be in the expected format.
-                // Thus, the force-unwraps (for now at least).
-                let json = try! JSONSerialization.jsonObject(with: data, options: [])
-                let jsonArray = json as! [UnboxableDictionary]
-                let stories: [Story] = jsonArray.map { try! unbox(dictionary: $0) }
-                debugLog("> Fetched \(stories.count) stories!")
-                completion(Result.success(stories))
+                if let models: [T] = self.decodeModels(data: data) {
+                    // Fetched models.
+                    Logger.shared.log("Fetched \(models.count) model objects!")
+                    completion(Result.success(models))
+                } else {
+                    // Parsing error.
+                    Logger.shared.log("Parsing error...")
+                    completion(Result.failure(err))
+                }
             } else {
-                let reason = "There was an issue with the data from the server. Please try again."
-                debugLog("> Invalid data coming from the server...")
-                completion(Result.failure(StoryFetchingError(reason: reason)))
+                // Unknown error.
+                Logger.shared.log("Unknown error...")
+                completion(Result.failure(err))
             }
         }
 
         task.resume()
+    }
+
+    // MARK: FeedPageFetching
+
+    func fetch(feed: FeedType, page: UInt, completion: @escaping (Result<FeedPage, NSError>) -> Void) {
+        guard let url = URL(string: feed.path, relativeTo: baseUrl)?.withPagination(page: page) else {
+            fatalError("Could not form API URL")
+        }
+
+        performModelFetch(URLRequest(url: url), completion: completion)
+    }
+
+    // MARK: TagFetching
+
+    func fetchTags(completion: @escaping (Result<[Tag], NSError>) -> Void) {
+        guard let url = URL(string: "/tags.json", relativeTo: baseUrl) else {
+            fatalError("Could not form API URL")
+        }
+
+        performModelFetch(URLRequest(url: url), completion: completion)
     }
 }

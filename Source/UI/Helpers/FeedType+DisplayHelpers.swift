@@ -1,5 +1,5 @@
 //
-//  Feed+DisplayHelpers.swift
+//  FeedType+DisplayHelpers.swift
 //  LobstersReader
 //
 //  Created by Colin Drake on 6/20/17.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// Feed icon and title helpers.
-extension Feed {
+extension FeedType {
     var icon: UIImage {
         switch self {
         case .hottest: return #imageLiteral(resourceName: "HottestIcon")

@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import Unbox
 
-/// Represents a tag categorizing a story.
+/// Tag a story may be filed under.
 struct Tag {
     let id: Int
     let tag: String

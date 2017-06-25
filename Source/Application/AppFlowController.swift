@@ -9,25 +9,20 @@
 import UIKit
 import SafariServices
 
-/// Flow controller responsible for application navigation and view controller hierarchy/setup.
+/// Main app flow controller responsible for application navigation and view controller management.
 final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoViewControllerDelegate, TagsViewControllerDelegate, UITabBarControllerDelegate {
     fileprivate let rootViewController: UITabBarController
-    fileprivate let client = APIClient.default
+    fileprivate let client = APIClient()
 
-    // MARK: Types
+    init(withWindow window: UIWindow) {
+        // Apply theme.
+        AppTheme.apply()
 
-    enum Tab: Int {
-        case hottest, newest, tags, info
-    }
-
-    // MARK: Initialization
-
-    override init() {
         // Setup view controller hierarchy.
         rootViewController = UITabBarController()
 
-        let newestStoriesViewController = StoriesViewController(feed: .hottest, fetcher: client)
-        let hottestStoriesViewController = StoriesViewController(feed: .newest, fetcher: client)
+        let newestStoriesViewController = StoriesViewController(type: .hottest, fetcher: client)
+        let hottestStoriesViewController = StoriesViewController(type: .newest, fetcher: client)
         let infoViewController = InfoViewController(info: defaultAppInfo)
         let tagsViewController = TagsViewController()
 
@@ -45,25 +40,47 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
             UINavigationController(rootViewController: tagsViewController),
             UINavigationController(rootViewController: infoViewController)
         ]
+
+        // Install into window.
+        Logger.shared.log("Installing app flow controller...")
+        window.rootViewController = rootViewController
     }
 
-    // MARK: Public Interface
+    // MARK: 3D Touch Shortcuts
 
-    func install(inWindow window: UIWindow) {
-        debugLog("Installing app flow controller...")
-        window.rootViewController = rootViewController
+    fileprivate enum Shortcut: String {
+        case hottest, newest, tags
+
+        static let all: [Shortcut] = [.hottest, .newest, .tags]
+        var tabIndex: Int {
+            return Shortcut.all.index(of: self)!
+        }
+    }
+
+    var shortcutItems: [UIApplicationShortcutItem] {
+        return Shortcut.all.map { shortcut in
+            let identifier = shortcut.rawValue
+            let name = identifier.localizedCapitalized
+            let icon = UIApplicationShortcutIcon(templateImageName: "\(name)Icon")
+            return UIApplicationShortcutItem(type: identifier, localizedTitle: name, localizedSubtitle: nil, icon: icon, userInfo: nil)
+        }
+    }
+
+    func attemptToHandle(shortcut: UIApplicationShortcutItem) -> Bool {
+        guard let shortcut = Shortcut(rawValue: shortcut.type) else {
+            return false
+        }
+
+        rootViewController.selectedIndex = shortcut.tabIndex
+        return true
     }
 
     // MARK: Helpers
 
-    fileprivate func safariControllerForUrl(_ url: URL) -> SFSafariViewController {
+    fileprivate func controllerToShow(url: URL) -> SFSafariViewController {
         let viewController = SFSafariViewController(url: url)
         viewController.preferredControlTintColor = .lobstersRed
         return viewController
-    }
-
-    func show(tab: Tab) {
-        rootViewController.selectedIndex = tab.rawValue
     }
 
     // MARK: UITabBarDelegate
@@ -76,8 +93,7 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
         // If so, allow power users to use this bounce to top of stories controller, or back to tags listing.
         if selectedController == viewController {
             if let viewController = viewController.viewControllers.first as? StoriesViewController {
-                let topRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-                viewController.tableView.scrollRectToVisible(topRect, animated: true)
+                viewController.scrollToTop()
             } else if let viewController = viewController.viewControllers.first as? TagsViewController {
                 viewController.navigationController?.popViewController(animated: true)
             }
@@ -89,17 +105,17 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
     // MARK: StoriesViewControllerDelegate
 
     func showStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) {
-        let viewController = safariControllerForUrl(story.viewableUrl)
+        let viewController = controllerToShow(url: story.viewableUrl)
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
     func showCommentsForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) {
-        let viewController = safariControllerForUrl(story.commentsUrl)
+        let viewController = controllerToShow(url: story.commentsUrl)
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
     func previewingViewControllerForStory(_ story: StoryViewModel, storiesViewController: StoriesViewController) -> UIViewController {
-        let viewController = safariControllerForUrl(story.viewableUrl)
+        let viewController = controllerToShow(url: story.viewableUrl)
         return viewController
     }
 
@@ -110,7 +126,7 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
     // MARK: InfoViewControllerDelegate
 
     func infoViewController(infoViewController: InfoViewController, selectedUrl url: URL) {
-        let viewController = safariControllerForUrl(url)
+        let viewController = controllerToShow(url: url)
         rootViewController.present(viewController, animated: true, completion: nil)
     }
 
@@ -121,7 +137,7 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
             return
         }
 
-        let tagViewController = StoriesViewController(feed: Feed.tagged(tag), fetcher: client)
+        let tagViewController = StoriesViewController(type: FeedType.tagged(tag), fetcher: client)
         tagViewController.delegate = self
         navigationController.pushViewController(tagViewController, animated: true)
     }

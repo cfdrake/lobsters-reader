@@ -19,8 +19,8 @@ protocol StoriesViewControllerDelegate {
 /// View controller displaying a list of stories.
 final class StoriesViewController: UITableViewController, StoryTableViewCellDelegate, UIViewControllerPreviewingDelegate {
     var delegate: StoriesViewControllerDelegate?
-    fileprivate let fetcher: StoryFetching
-    fileprivate let feed: Feed
+    fileprivate let fetcher: FeedPageFetching
+    fileprivate let type: FeedType
     fileprivate var page: UInt
     fileprivate var stories: [Story] {
         didSet {
@@ -38,16 +38,16 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         }
     }
 
-    init(feed: Feed, fetcher: StoryFetching) {
-        self.feed = feed
+    init(type: FeedType, fetcher: FeedPageFetching) {
+        self.type = type
         self.fetcher = fetcher
         self.page = 1
         self.stories = []
 
         super.init(style: .plain)
 
-        title = feed.asTitle
-        tabBarItem = UITabBarItem(title: feed.asTitle, image: feed.icon, selectedImage: nil)
+        title = type.asTitle
+        tabBarItem = UITabBarItem(title: type.asTitle, image: type.icon, selectedImage: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,7 +87,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
         tableView.refreshControl?.beginRefreshing()
 
-        fetcher.fetchStories(fromFeed: feed, page: page) { [unowned self] result in
+        fetcher.fetch(feed: type, page: page) { [unowned self] result in
             self.loading = false
 
             DispatchQueue.main.async {
@@ -108,7 +108,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate func loadNextPage() {
         loading = true
 
-        fetcher.fetchStories(fromFeed: feed, page: page) { [unowned self] result in
+        fetcher.fetch(feed: type, page: page) { [unowned self] result in
             self.loading = false
 
             switch result {
