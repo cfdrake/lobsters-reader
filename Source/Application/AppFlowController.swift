@@ -64,7 +64,8 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
         // If so, allow power users to use this bounce to top of stories controller, or back to tags listing.
         if selectedController == viewController {
             if let viewController = viewController.viewControllers.first as? StoriesViewController {
-                viewController.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                let topRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+                viewController.tableView.scrollRectToVisible(topRect, animated: true)
             } else if let viewController = viewController.viewControllers.first as? TagsViewController {
                 viewController.navigationController?.popViewController(animated: true)
             }
