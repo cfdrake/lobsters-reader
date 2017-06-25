@@ -18,6 +18,14 @@ extension FeedType {
         }
     }
 
+    var iconFilled: UIImage {
+        switch self {
+        case .hottest: return #imageLiteral(resourceName: "HottestIconFilled")
+        case .newest: return #imageLiteral(resourceName: "NewestIconFilled")
+        case .tagged: return #imageLiteral(resourceName: "TagsIconFilled")
+        }
+    }
+
     var asTitle: String {
         switch self {
         case .hottest: return "Hottest"

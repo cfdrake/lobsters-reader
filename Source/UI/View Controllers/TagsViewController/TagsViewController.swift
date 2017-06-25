@@ -118,7 +118,7 @@ final class TagsViewController: UITableViewController {
         super.init(style: .plain)
 
         title = "Tags"
-        tabBarItem = UITabBarItem(title: "Tags", image: UIImage.init(named: "TagsIcon"), selectedImage: nil)
+        tabBarItem = UITabBarItem(title: "Tags", image: UIImage.init(named: "TagsIcon"), selectedImage: UIImage.init(named: "TagsIconFilled"))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: TagsViewController.cellIdentifier)
     }
 

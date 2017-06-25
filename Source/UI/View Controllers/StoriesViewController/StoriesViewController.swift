@@ -47,7 +47,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         super.init(style: .plain)
 
         title = type.asTitle
-        tabBarItem = UITabBarItem(title: type.asTitle, image: type.icon, selectedImage: nil)
+        tabBarItem = UITabBarItem(title: type.asTitle, image: type.icon, selectedImage: type.iconFilled)
     }
     
     required init?(coder aDecoder: NSCoder) {

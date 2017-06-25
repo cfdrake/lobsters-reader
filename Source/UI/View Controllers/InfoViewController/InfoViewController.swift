@@ -25,7 +25,7 @@ final class InfoViewController: UITableViewController {
         super.init(style: .grouped)
 
         title = "Info"
-        tabBarItem = UITabBarItem(title: "Info", image: UIImage.init(named: "InfoIcon"), selectedImage: nil)
+        tabBarItem = UITabBarItem(title: "Info", image: UIImage.init(named: "InfoIcon"), selectedImage: UIImage.init(named: "InfoIconFilled"))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: InfoViewController.cellIdentifier)
     }
     
