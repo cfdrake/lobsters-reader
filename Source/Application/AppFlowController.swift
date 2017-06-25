@@ -14,6 +14,14 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
     fileprivate let rootViewController: UITabBarController
     fileprivate let client = APIClient.default
 
+    // MARK: Types
+
+    enum Tab: Int {
+        case hottest, newest, tags, info
+    }
+
+    // MARK: Initialization
+
     override init() {
         // Setup view controller hierarchy.
         rootViewController = UITabBarController()
@@ -52,6 +60,10 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
         let viewController = SFSafariViewController(url: url)
         viewController.preferredControlTintColor = .lobstersRed
         return viewController
+    }
+
+    func show(tab: Tab) {
+        rootViewController.selectedIndex = tab.rawValue
     }
 
     // MARK: UITabBarDelegate
