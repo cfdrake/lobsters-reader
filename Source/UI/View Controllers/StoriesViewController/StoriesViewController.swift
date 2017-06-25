@@ -22,6 +22,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate let fetcher: FeedPageFetching
     fileprivate let type: FeedType
     fileprivate var page: UInt
+    fileprivate let readTracker: StoryReadTracking = InMemoryStoryReadTracker()
     fileprivate var stories: [Story] {
         didSet {
             guard self.isViewLoaded else { return }
@@ -137,7 +138,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         let viewModel = viewModelForRow(indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: StoryTableViewCell.cellIdentifier, for: indexPath) as! StoryTableViewCell
 
-        cell.configure(viewModel: viewModel)
+        cell.configure(viewModel: viewModel, unread: !readTracker.isStoryRead(story: stories[indexPath.row]))
         cell.delegate = self
         cell.tag = indexPath.row
 
@@ -153,6 +154,10 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewModel = viewModelForRow(indexPath.row)
         delegate?.showStory(viewModel, storiesViewController: self)
+
+        // Mark as read.
+        readTracker.markStoryRead(story: stories[indexPath.row])
+        tableView.reloadRows(at: [indexPath], with: .automatic)
 
         // Fix selection style being persisted.
         tableView.selectRow(at: nil, animated: true, scrollPosition: .none)

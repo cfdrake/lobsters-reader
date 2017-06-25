@@ -27,8 +27,9 @@ final class StoryTableViewCell: UITableViewCell {
 
     // MARK: Helpers
 
-    func configure(viewModel: StoryViewModel) {
+    func configure(viewModel: StoryViewModel, unread: Bool) {
         storyTitleLabel?.text = viewModel.title
+        storyTitleLabel?.textColor = (unread ? .black : .lightGray)
         storyScoreLabel?.text = "↑\(viewModel.score)"
         storySubmitDateLabel?.text = viewModel.fuzzyPostedAt
         storyCommentsButton?.setTitle("\(viewModel.comments)", for: .normal)
