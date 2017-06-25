@@ -221,7 +221,7 @@
 		3BCABB731F0041630086941F /* UITableViewController+ScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+ScrollToTop.swift"; sourceTree = "<group>"; };
 		3BCABB751F0042580086941F /* Tag+Unboxable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+Unboxable.swift"; sourceTree = "<group>"; };
 		3BCABB771F004ADD0086941F /* URLRequest+PaginatedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+PaginatedRequest.swift"; sourceTree = "<group>"; };
-		3BEF69451EFA080D004D7FF6 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = ../../Application/Logger.swift; sourceTree = "<group>"; };
+		3BEF69451EFA080D004D7FF6 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -455,6 +455,7 @@
 			children = (
 			);
 			name = Storage;
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
