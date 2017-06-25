@@ -20,19 +20,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑34" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JuM-yb-oRl">
-                        <rect key="frame" x="12" y="35" width="27" height="14.5"/>
+                        <rect key="frame" x="16" y="35" width="27" height="14.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Story Title&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm5-Te-QfS">
-                        <rect key="frame" x="12" y="13.5" width="313" height="19.5"/>
+                        <rect key="frame" x="16" y="13.5" width="309" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;domain.com&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3b-8a-PM2">
-                        <rect key="frame" x="42.5" y="35" width="85" height="15"/>
+                        <rect key="frame" x="46.5" y="35" width="85" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -59,18 +59,18 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Story Submit Date and Author&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs9-53-rhY">
-                        <rect key="frame" x="131.5" y="35" width="185" height="15"/>
+                        <rect key="frame" x="135.5" y="35" width="185" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nr6-Pf-OQp" userLabel="Spacer Top">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="13.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Nl-k8-9vQ" userLabel="Spacer Bottom">
-                        <rect key="frame" x="39" y="49.5" width="92.5" height="13.5"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="frame" x="43" y="49.5" width="92.5" height="13.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <constraints>
@@ -87,7 +87,7 @@
                     <constraint firstItem="2Nl-k8-9vQ" firstAttribute="top" secondItem="JuM-yb-oRl" secondAttribute="bottom" id="aYn-kf-uSz"/>
                     <constraint firstItem="a3b-8a-PM2" firstAttribute="centerY" secondItem="JuM-yb-oRl" secondAttribute="centerY" id="cyX-at-eum"/>
                     <constraint firstItem="Bs9-53-rhY" firstAttribute="leading" secondItem="a3b-8a-PM2" secondAttribute="trailing" constant="4" id="mbU-LD-FMO"/>
-                    <constraint firstItem="sm5-Te-QfS" firstAttribute="leading" secondItem="mpe-7J-EhZ" secondAttribute="leadingMargin" constant="4" id="r5y-G4-i8q"/>
+                    <constraint firstItem="sm5-Te-QfS" firstAttribute="leading" secondItem="mpe-7J-EhZ" secondAttribute="leadingMargin" constant="8" id="r5y-G4-i8q"/>
                     <constraint firstItem="a3b-8a-PM2" firstAttribute="leading" secondItem="JuM-yb-oRl" secondAttribute="trailing" constant="4" id="tVt-SL-GxC"/>
                     <constraint firstItem="JuM-yb-oRl" firstAttribute="top" secondItem="sm5-Te-QfS" secondAttribute="bottom" constant="2" id="vBt-y3-Q9u"/>
                     <constraint firstItem="2Nl-k8-9vQ" firstAttribute="height" secondItem="nr6-Pf-OQp" secondAttribute="height" id="vP0-5s-Gtz"/>
@@ -95,6 +95,7 @@
                     <constraint firstAttribute="trailing" secondItem="hPE-Me-0bW" secondAttribute="trailing" constant="8" id="y5i-Bh-UHb"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="storyCommentsButton" destination="hPE-Me-0bW" id="lvy-FA-HUJ"/>
                 <outlet property="storyDomainLabel" destination="a3b-8a-PM2" id="XO4-pw-vuJ"/>
