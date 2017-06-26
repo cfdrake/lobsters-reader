@@ -22,7 +22,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate let fetcher: FeedPageFetching
     fileprivate let type: FeedType
     fileprivate var page: UInt
-    fileprivate let readTracker: StoryReadTracking = InMemoryStoryReadTracker()
+    fileprivate let readTracker: StoryReadTracking
     fileprivate var stories: [Story] {
         didSet {
             guard self.isViewLoaded else { return }
@@ -39,11 +39,12 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
         }
     }
 
-    init(type: FeedType, fetcher: FeedPageFetching) {
+    init(type: FeedType, fetcher: FeedPageFetching, readTracker: StoryReadTracking) {
         self.type = type
         self.fetcher = fetcher
         self.page = 1
         self.stories = []
+        self.readTracker = readTracker
 
         super.init(style: .plain)
 

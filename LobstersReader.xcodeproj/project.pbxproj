@@ -13,7 +13,7 @@
 		3B15FAC71ED9FA9A00091767 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B15FAC61ED9FA9A00091767 /* Feed.swift */; };
 		3B15FAD31EDA1D4D00091767 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B15FAD21EDA1D4D00091767 /* SafariServices.framework */; };
 		3B1F6E671F00756200C283F3 /* StoryReadTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F6E661F00756200C283F3 /* StoryReadTracking.swift */; };
-		3B1F6E771F00759700C283F3 /* InMemoryStoryReadTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F6E761F00759700C283F3 /* InMemoryStoryReadTracker.swift */; };
+		3B1F6E771F00759700C283F3 /* PersistentStoryReadTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F6E761F00759700C283F3 /* PersistentStoryReadTracker.swift */; };
 		3B97EA081EDB15F2009B3B4B /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97EA071EDB15F2009B3B4B /* StoryTableViewCell.swift */; };
 		3B97EA0A1EDB15FB009B3B4B /* StoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B97EA091EDB15FB009B3B4B /* StoryTableViewCell.xib */; };
 		3B97EA0D1EDB2B92009B3B4B /* Date+TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97EA0C1EDB2B92009B3B4B /* Date+TimeAgo.swift */; };
@@ -194,8 +194,8 @@
 		3B15FABC1ED9F60D00091767 /* AppFlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		3B15FAC61ED9FA9A00091767 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		3B15FAD21EDA1D4D00091767 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		3B1F6E661F00756200C283F3 /* StoryReadTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryReadTracking.swift; path = StoryReadTracking.swift; sourceTree = "<group>"; };
-		3B1F6E761F00759700C283F3 /* InMemoryStoryReadTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InMemoryStoryReadTracker.swift; path = InMemoryStoryReadTracker.swift; sourceTree = "<group>"; };
+		3B1F6E661F00756200C283F3 /* StoryReadTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryReadTracking.swift; sourceTree = "<group>"; };
+		3B1F6E761F00759700C283F3 /* PersistentStoryReadTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStoryReadTracker.swift; sourceTree = "<group>"; };
 		3B97EA071EDB15F2009B3B4B /* StoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		3B97EA091EDB15FB009B3B4B /* StoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoryTableViewCell.xib; sourceTree = "<group>"; };
 		3B97EA0C1EDB2B92009B3B4B /* Date+TimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+TimeAgo.swift"; sourceTree = "<group>"; };
@@ -296,16 +296,14 @@
 			children = (
 				3B1F6E661F00756200C283F3 /* StoryReadTracking.swift */,
 			);
-			name = Protocols;
 			path = Protocols;
 			sourceTree = "<group>";
 		};
 		3B1F6E751F00756B00C283F3 /* Concrete */ = {
 			isa = PBXGroup;
 			children = (
-				3B1F6E761F00759700C283F3 /* InMemoryStoryReadTracker.swift */,
+				3B1F6E761F00759700C283F3 /* PersistentStoryReadTracker.swift */,
 			);
-			name = Concrete;
 			path = Concrete;
 			sourceTree = "<group>";
 		};
@@ -692,7 +690,7 @@
 				3BCABB691F0038720086941F /* FeedPageFetching.swift in Sources */,
 				3B15FAB71ED9F30C00091767 /* Story.swift in Sources */,
 				3B97EA241EDB5EF6009B3B4B /* AppTheme.swift in Sources */,
-				3B1F6E771F00759700C283F3 /* InMemoryStoryReadTracker.swift in Sources */,
+				3B1F6E771F00759700C283F3 /* PersistentStoryReadTracker.swift in Sources */,
 				3B97EA0D1EDB2B92009B3B4B /* Date+TimeAgo.swift in Sources */,
 				3BC8E6541EF9F0CB00A243C4 /* TagsViewController.swift in Sources */,
 				3BCABB781F004ADD0086941F /* URLRequest+PaginatedRequest.swift in Sources */,

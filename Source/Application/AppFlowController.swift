@@ -13,16 +13,25 @@ import SafariServices
 final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoViewControllerDelegate, TagsViewControllerDelegate, UITabBarControllerDelegate {
     fileprivate let rootViewController: UITabBarController
     fileprivate let client = APIClient()
+    fileprivate let readTracker: PersistentStoryReadTracker
 
     init(withWindow window: UIWindow) {
         // Apply theme.
         AppTheme.apply()
 
+        // Set up cache.
+        guard let cachePath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else {
+            fatalError("Could not find cache directory")
+        }
+
+        let readTrackerCacheFileName = cachePath.appending("/readTrackingCache")
+        readTracker = PersistentStoryReadTracker(cacheFilePath: readTrackerCacheFileName)
+
         // Setup view controller hierarchy.
         rootViewController = UITabBarController()
 
-        let newestStoriesViewController = StoriesViewController(type: .hottest, fetcher: client)
-        let hottestStoriesViewController = StoriesViewController(type: .newest, fetcher: client)
+        let newestStoriesViewController = StoriesViewController(type: .hottest, fetcher: client, readTracker: readTracker)
+        let hottestStoriesViewController = StoriesViewController(type: .newest, fetcher: client, readTracker: readTracker)
         let infoViewController = InfoViewController(info: defaultAppInfo)
         let tagsViewController = TagsViewController()
 
@@ -44,6 +53,17 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
         // Install into window.
         Logger.shared.log("Installing app flow controller...")
         window.rootViewController = rootViewController
+
+        // Subscribe to notifications.
+        NotificationCenter.default.addObserver(self, selector: #selector(AppFlowController.appBackgrounded), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+    }
+
+    func appBackgrounded() {
+        readTracker.save()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: 3D Touch Shortcuts
@@ -137,7 +157,7 @@ final class AppFlowController: NSObject, StoriesViewControllerDelegate, InfoView
             return
         }
 
-        let tagViewController = StoriesViewController(type: FeedType.tagged(tag), fetcher: client)
+        let tagViewController = StoriesViewController(type: FeedType.tagged(tag), fetcher: client, readTracker: readTracker)
         tagViewController.delegate = self
         navigationController.pushViewController(tagViewController, animated: true)
     }
