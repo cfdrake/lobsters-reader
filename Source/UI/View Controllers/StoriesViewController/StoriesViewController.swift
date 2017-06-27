@@ -148,7 +148,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
 
     // MARK: UITableViewDelegate
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
 
