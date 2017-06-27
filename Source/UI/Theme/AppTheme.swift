@@ -10,7 +10,7 @@ import UIKit
 
 /// Define app-specific colors.
 extension UIColor {
-    static let lobstersRed = UIColor.red
+    static let lobstersRed = UIColor(red: 232.0 / 255.0, green: 38.0 / 255.0, blue: 38.0 / 255.0, alpha: 1.0)
 }
 
 /// Application themer.
