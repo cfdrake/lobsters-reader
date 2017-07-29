@@ -37,27 +37,6 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-Me-0bW">
-                        <rect key="frame" x="335" y="16" width="32" height="32"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="32" id="3pE-qw-fTf"/>
-                            <constraint firstAttribute="width" constant="32" id="bxz-vi-Mwe"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                        <inset key="titleEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="6" backgroundImage="CommentsIcon">
-                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="16"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="tappedCommentsButton" destination="mB4-no-e1d" eventType="touchUpInside" id="giz-kt-nLM"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Story Submit Date and Author&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs9-53-rhY">
                         <rect key="frame" x="135.5" y="35" width="185" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -75,10 +54,36 @@
                         <rect key="frame" x="43" y="49.5" width="92.5" height="13.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CommentsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="pu1-rP-1Ke">
+                        <rect key="frame" x="335" y="15" width="32" height="34"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-Me-0bW">
+                        <rect key="frame" x="335" y="0.0" width="32" height="64"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="bxz-vi-Mwe"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <inset key="titleEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="6">
+                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="tappedCommentsButton" destination="mB4-no-e1d" eventType="touchUpInside" id="giz-kt-nLM"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="nr6-Pf-OQp" firstAttribute="top" secondItem="mpe-7J-EhZ" secondAttribute="top" id="2ra-jV-55u"/>
-                    <constraint firstItem="hPE-Me-0bW" firstAttribute="centerY" secondItem="mpe-7J-EhZ" secondAttribute="centerY" id="4GF-IC-kjh"/>
+                    <constraint firstItem="pu1-rP-1Ke" firstAttribute="centerX" secondItem="hPE-Me-0bW" secondAttribute="centerX" id="3ZO-Ga-GZX"/>
                     <constraint firstItem="JuM-yb-oRl" firstAttribute="leading" secondItem="sm5-Te-QfS" secondAttribute="leading" id="8T4-Q1-MB1"/>
                     <constraint firstItem="hPE-Me-0bW" firstAttribute="leading" secondItem="sm5-Te-QfS" secondAttribute="trailing" constant="10" id="9a6-2g-9t1"/>
                     <constraint firstItem="nr6-Pf-OQp" firstAttribute="leading" secondItem="mpe-7J-EhZ" secondAttribute="leading" id="9zu-57-Ezx"/>
@@ -88,13 +93,16 @@
                     <constraint firstItem="Bs9-53-rhY" firstAttribute="leading" secondItem="2Nl-k8-9vQ" secondAttribute="trailing" id="YE5-Wv-2Fs"/>
                     <constraint firstAttribute="bottom" secondItem="2Nl-k8-9vQ" secondAttribute="bottom" id="Ypq-fm-xGi"/>
                     <constraint firstItem="2Nl-k8-9vQ" firstAttribute="top" secondItem="JuM-yb-oRl" secondAttribute="bottom" id="aYn-kf-uSz"/>
+                    <constraint firstAttribute="bottom" secondItem="hPE-Me-0bW" secondAttribute="bottom" id="bfh-Iz-9ci"/>
                     <constraint firstItem="a3b-8a-PM2" firstAttribute="centerY" secondItem="JuM-yb-oRl" secondAttribute="centerY" id="cyX-at-eum"/>
+                    <constraint firstItem="hPE-Me-0bW" firstAttribute="top" secondItem="mpe-7J-EhZ" secondAttribute="top" id="kgU-US-YcI"/>
                     <constraint firstItem="Bs9-53-rhY" firstAttribute="leading" secondItem="a3b-8a-PM2" secondAttribute="trailing" constant="4" id="mbU-LD-FMO"/>
                     <constraint firstItem="sm5-Te-QfS" firstAttribute="leading" secondItem="mpe-7J-EhZ" secondAttribute="leadingMargin" constant="8" id="r5y-G4-i8q"/>
                     <constraint firstItem="a3b-8a-PM2" firstAttribute="leading" secondItem="JuM-yb-oRl" secondAttribute="trailing" constant="4" id="tVt-SL-GxC"/>
                     <constraint firstItem="JuM-yb-oRl" firstAttribute="top" secondItem="sm5-Te-QfS" secondAttribute="bottom" constant="2" id="vBt-y3-Q9u"/>
                     <constraint firstItem="2Nl-k8-9vQ" firstAttribute="height" secondItem="nr6-Pf-OQp" secondAttribute="height" id="vP0-5s-Gtz"/>
                     <constraint firstItem="2Nl-k8-9vQ" firstAttribute="leading" secondItem="JuM-yb-oRl" secondAttribute="trailing" id="vda-ea-e9c"/>
+                    <constraint firstItem="pu1-rP-1Ke" firstAttribute="centerY" secondItem="hPE-Me-0bW" secondAttribute="centerY" id="xgT-64-c5L"/>
                     <constraint firstAttribute="trailing" secondItem="hPE-Me-0bW" secondAttribute="trailing" constant="8" id="y5i-Bh-UHb"/>
                 </constraints>
             </tableViewCellContentView>
