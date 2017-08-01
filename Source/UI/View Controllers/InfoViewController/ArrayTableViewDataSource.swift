@@ -23,7 +23,6 @@ final class ArrayTableViewDataSource<ModelType, CellType: UITableViewCell>: NSOb
     // MARK: UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Rows", objects.count)
         return objects.count
     }
 
