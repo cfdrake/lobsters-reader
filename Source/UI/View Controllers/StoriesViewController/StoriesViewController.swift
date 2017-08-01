@@ -26,7 +26,7 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate var stories: [Story] {
         didSet {
             guard self.isViewLoaded else { return }
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [unowned self] in
                 self.tableView.reloadData()
                 self.tableView.flashScrollIndicators()
             }
@@ -35,7 +35,9 @@ final class StoriesViewController: UITableViewController, StoryTableViewCellDele
     fileprivate var loading = false {
         didSet {
             guard self.isViewLoaded else { return }
-            UIApplication.shared.isNetworkActivityIndicatorVisible = loading
+            DispatchQueue.main.async { [unowned self] in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = self.loading
+            }
         }
     }
 
